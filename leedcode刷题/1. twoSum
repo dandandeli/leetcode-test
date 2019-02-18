@@ -1,0 +1,50 @@
+暴力搜索方法：
+class Solution {
+public:
+	vector<int> twoSum(vector<int>& nums, int target) //注意自给的函数接口和参数类型 不能更改
+  {
+        int num = nums.size();
+        for(int i = 0; i < num; i++)
+            for(int j = i + 1; j < num; j++)
+                if(nums[i] + nums[j] == target)
+                    return{i, j};
+   return {0,0};  //注意vector的返回类型
+}
+};
+
+class Solution {
+public:
+	vector<int> twoSum(vector<int>& nums, int target) {
+       vector<int> a(2,0);  //生成一个大小为2 每个元素值都是0的元素
+        for(int i = 0; i < nums.size(); i++)
+            for(int j = i + 1; j < nums.size(); j++)
+                if(nums[i] + nums[j] == target){
+                    a[0]=i;
+                    a[1]=j;
+                    return a;
+                }
+            
+   return a;
+}
+};
+
+利用哈希，需要O（n）的时间和O（n）的空间
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> m;
+        vector<int> res;
+        for (int i = 0; i < nums.size(); ++i) {
+            m[nums[i]] = i;
+        }
+        for (int i = 0; i < nums.size(); ++i) {
+            int t = target - nums[i];
+            if (m.count(t) && m[t] != i) {
+                res.push_back(i);
+                res.push_back(m[t]);
+                break;
+            }
+        }
+        return res;
+    }
+};
