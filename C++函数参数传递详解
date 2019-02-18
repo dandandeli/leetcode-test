@@ -1,0 +1,63 @@
+Ç或C ++中函数的参数传递包括：值传递、指针传递、引用传递三种。
+以swap函数交换两个值为例
+// test.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <iostream>
+
+using namespace std;
+
+//值传递
+void swap1(int p,int q)
+{                     //值传递的是实际参数的一个副本，即p、q是a、b的副本，地址也不一样，只是把a b的值给拷贝过去了
+    int temp;         //在swap1中对p和q操作只是对临时分配的栈中内容进行操作，函数执行完后形参就消失了，对原来的a和b不产生任何影响。所以swap1不能完成交换a和b值的功能
+    temp=p;
+    p=q;
+    q=temp;
+}
+
+//指针传递，函数体内只有指针值的变化
+void swap2(int *p,int *q)
+{
+    int temp;         //指针传递，函数体内交换了p和q指向地址的值
+    temp=*p;          //形参指针p和q指向的是a和b的地址，而不是像值传递那样将实参的值拷贝到另外分配的地址中
+    *p=*q;            //指针p和q指向的地址没变，但地址中的值变了，也即a和b地址中的值变了，就是a和b的值成功交换
+    *q=temp;          //swap函数执行完成后，p和q局部变量不复存在，但是保存的地址依然有效
+}
+
+//指针传递，函数体内只有指针的变化
+void swap3(int *p,int *q)
+{
+    int *temp;         //形参p和q保存在栈中，p指向a的地址，q指向b的地址
+    temp=p;            //局部变量p和q交换了地址，但没有修改它们指向的内容即地址中的值并没有交换。
+    p=q;               //所以函数执行完成后，p q失效，但是a b的地址不变，所以值并未交换
+    q=temp;
+}
+
+//引用传递
+void swap4(int &p,int &q)
+{
+    int temp;
+    temp=p;            //引用的传递，对形参的操作等同于对实参的操作，即传递的不会是实参的副本，而就是实参。
+    p=q;               //形参p q和a b的地址和值都是相同的
+    q=temp;
+}
+
+int main()
+{ 
+    int a=1,b=2;
+    swap1(a,b);
+    //swap2(&a,&b);
+    //swap3(&a,&b);
+    //swap4(a,b);
+    cout<<a<<"  "<<b<<endl;
+    return 0;
+}
+
+数组作为参数和返回值
+int sum(int a[])
+{                  //sizeof(a)无法得到数组的大小
+                   //数组作为参数传递函数时，实际上只有数组的首地址作为指针传递给函数 int a[]等价于int *a
+                   //在只有地址信息情况下，是无法知道数组里有多少个元素
+}
