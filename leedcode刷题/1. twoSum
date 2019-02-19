@@ -21,7 +21,7 @@ public:
                 if(nums[i] + nums[j] == target){
                     a[0]=i;
                     a[1]=j;
-                    return a;
+                    return a;           //其实有漏洞，局部变量vector不能直接返回
                 }
             
    return a;
