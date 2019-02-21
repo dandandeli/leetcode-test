@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {     //记住判断特殊情况  
+                                              //对nums[i]中的i进行加减操作的时候，要注意防止使数组nums[i]溢出
+        int i;
+        if(nums.size()==1) return nums[0];
+        sort(nums.begin(),nums.end());
+        for(i=1;i<nums.size();)
+        {
+            if(nums[i-1]!=nums[i])
+                return nums[i-1];
+            else
+                i+=2;
+        }
+
+        return nums[i-1];
+    }
+};
