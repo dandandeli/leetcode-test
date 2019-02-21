@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        int i,j;
+        if(nums.size()<=1) return false;
+        for(i=0;i<nums.size();i++)           //bool型return true和false;
+        {
+            for(j=i+1;j<nums.size();j++)
+            {
+                if(nums[i]==nums[j])
+                 return true;
+            }
+        }
+         return false;
+    }
+   
+};
+
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        int i;
+        if(nums.size()<=1) return false;
+        sort(nums.begin(),nums.end());  //先排序
+        for(i=1;i<nums.size();i++)  //因为sort方法实际上最后一位地址对应的数是不取的，而且vector，set，map这些容器的end()取出来的值实际上并不是最后一个值，而end的前一个才是最后一个值！
+        {
+            if(nums[i-1]==nums[i])
+                return true;
+        }
+        return false;
+    }
+   
+};
