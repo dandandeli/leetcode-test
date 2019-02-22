@@ -28,11 +28,11 @@ public:
 }
 };
 
-利用哈希，需要O（n）的时间和O（n）的空间
+利用哈希，需要O（n）的时间和O（n）的空间   之所以用哈希 是因为哈希查找速度块
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        unordered_map<int, int> m;
+        unordered_map<int, int> m;  //哈希表记录数值和下标的对应状态
         vector<int> res;
         for (int i = 0; i < nums.size(); ++i) {
             m[nums[i]] = i;
