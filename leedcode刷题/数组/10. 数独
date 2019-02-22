@@ -3,6 +3,7 @@ public:
     bool isValidSudoku(vector<vector<char>>& board) {
         for(int i = 0; i < 9; ++i){
             map<char, int> m;  //用map[char]记录该char记录的次数 map vector类型没被初始化之前，int型默认为0  其他默认为空
+                               //注意每次循环都要重新赋值 防止影响其他行和列
                                //map和set一样不包含重复的键值  所以count只为1或者0
             for(int j = 0; j < 9; ++j){
                 
@@ -49,7 +50,7 @@ public:
     bool isValidSudoku(vector<vector<char>>& board) {
         bool flag=true;
         for(int i=0;i<9;i++){
-            int a[10]={0};  //用数组a[i]标记数字i是否出现 
+            int a[10]={0};  //用数组a[i]标记数字i是否出现 注意每次循环都要重新赋值
             for(int j=0;j<9;j++){
                 if(board[i][j]!='.'){
                     if(a[board[i][j]-'0']==0)  //a[i]等于0表示没有出现 然后标记成1
@@ -79,7 +80,7 @@ public:
         }
         
         for(int i=0;i<7;i+=3){
-            for(int j=0;j<7;j+=3){
+            for(int j=0;j<7;j+=3){   //标记每个九方格的左上角元素  每一个确定的 i j 对应一个九方格
                 int a[10]={0};
                 for(int p=i;p<i+3;p++){
                     for(int q=j;q<j+3;q++){
