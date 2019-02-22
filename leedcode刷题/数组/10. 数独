@@ -52,7 +52,7 @@ public:
         for(int i=0;i<9;i++){
             int a[10]={0};  //用数组a[i]标记数字i是否出现 注意每次循环都要重新赋值
             for(int j=0;j<9;j++){
-                if(board[i][j]!='.'){
+                if(board[i][j]!='.'){     //要先判断不能等于‘.’，否则a['.'-'0']会越界
                     if(a[board[i][j]-'0']==0)  //a[i]等于0表示没有出现 然后标记成1
                         a[board[i][j]-'0']=1;
                     else                      //a[i]不等于0 表示出现 返回false
@@ -82,7 +82,7 @@ public:
         for(int i=0;i<7;i+=3){
             for(int j=0;j<7;j+=3){   //标记每个九方格的左上角元素  每一个确定的 i j 对应一个九方格
                 int a[10]={0};
-                for(int p=i;p<i+3;p++){
+                for(int p=i;p<i+3;p++){      //从左上角坐标 i，j开始遍历
                     for(int q=j;q<j+3;q++){
                         if(board[p][q]!='.'){
                     if(a[board[p][q]-'0']==0)
