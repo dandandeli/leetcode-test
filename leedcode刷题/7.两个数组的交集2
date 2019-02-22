@@ -2,7 +2,7 @@
 class Solution {
 public:
     vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
-        vector<int> nums3;
+        vector<int> nums3;         //不初始化 就是空
         int k=0,i,j;
         if(nums1.size()==0||nums2.size()==0)   //优先判断
             return nums3;
