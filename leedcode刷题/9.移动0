@@ -1,0 +1,38 @@
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int n=nums.size();
+        if(n==0) return;
+        vector<int>::iterator loc;
+        loc=nums.begin();
+        for(int i=0;i<n;i++)   //遍历数组中所有的数
+        {
+            if(*loc==0)
+            {
+                loc==nums.erase(loc);  //删除0 再在末尾添加0 相当于把0移动到末尾
+                nums.push_back(0);
+            }
+            else 
+                loc++;
+        }
+        return;
+    }
+};
+
+
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int n=nums.size();
+        if(n==0) return;
+        int cur=0;   //cur慢指针  指向不是0的元素要放的位置
+        for(int i=0;i<n;i++)
+        {
+            if(nums[i]!=0)
+                nums[cur++]=nums[i];
+        }
+        for(int j=cur;j<n;j++)
+            nums[j]=0;
+        return;
+    }
+};
