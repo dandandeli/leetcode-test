@@ -1,0 +1,104 @@
+class Solution {
+public:
+    bool isValidSudoku(vector<vector<char>>& board) {
+        for(int i = 0; i < 9; ++i){
+            map<char, int> m;  //用map[char]记录该char记录的次数 map vector类型没被初始化之前，int型默认为0  其他默认为空
+                               //map和set一样不包含重复的键值  所以count只为1或者0
+            for(int j = 0; j < 9; ++j){
+                
+                if(m.count(board[i][j])&& board[i][j] != '.') {   //可以用map.count（）记录某个元素是否出现，如果不是标点，且次数不为0
+                    return false;  //返回false
+                }
+                m[board[i][j]]++;  //否则 没有重复 次数加1
+            }
+            
+        }   
+        
+        for(int i = 0; i < 9; ++i){
+            map<char, int> m;
+            for(int j = 0; j < 9; ++j){
+                if(m[board[j][i]] != 0 && board[j][i] != '.'){   //可以直接用m[char]是否等于0来判断 是否重复 因为默认初值为0
+                    return false;
+                }
+                m[board[j][i]]++;
+            }
+        }
+        for(int i = 0; i < 9; ){  遍历每一行 每一列
+            for(int j = 0; j < 9; ){
+                map<char, int> m;
+                for(int x = i; x < i+3; ++x){
+                    for(int y = j; y < j + 3; ++y){
+                        if(m[board[x][y]] > 0 && board[x][y] != '.') 
+                            return false;
+                        }
+                        m[board[x][y]]++;
+                    }
+                }
+                j += 3;
+            }
+            i += 3;
+        }
+        return true;
+    }
+};
+
+
+
+class Solution {
+public:
+    bool isValidSudoku(vector<vector<char>>& board) {
+        bool flag=true;
+        for(int i=0;i<9;i++){
+            int a[10]={0};  //用数组a[i]标记数字i是否出现 
+            for(int j=0;j<9;j++){
+                if(board[i][j]!='.'){
+                    if(a[board[i][j]-'0']==0)  //a[i]等于0表示没有出现 然后标记成1
+                        a[board[i][j]-'0']=1;
+                    else                      //a[i]不等于0 表示出现 返回false
+                        flag=false; 
+                }
+            }
+            if(flag==false)
+               return flag;
+        }
+        
+        
+        
+         for(int i=0;i<9;i++){
+            int a[10]={0};
+            for(int j=0;j<9;j++){
+                if(board[j][i]!='.'){
+                    if(a[board[j][i]-'0']==0)
+                        a[board[j][i]-'0']=1;
+                    else
+                        flag=false; 
+                }
+            }
+            if(flag==false)
+               return flag;
+        }
+        
+        for(int i=0;i<7;i+=3){
+            for(int j=0;j<7;j+=3){
+                int a[10]={0};
+                for(int p=i;p<i+3;p++){
+                    for(int q=j;q<j+3;q++){
+                        if(board[p][q]!='.'){
+                    if(a[board[p][q]-'0']==0)
+                        a[board[p][q]-'0']=1;
+                    else
+                        flag=false; 
+                }
+                    }
+                }
+            if(flag==false)
+               return flag;
+            }
+        }
+        
+        
+        
+        
+       return flag; 
+    }
+};
