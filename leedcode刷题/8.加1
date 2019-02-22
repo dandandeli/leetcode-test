@@ -1,0 +1,46 @@
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        int leg=digits.size();
+        
+        for(int i=leg-1;i>=0;i--)
+        {
+         if(digits[i]==9)
+            digits[i]=0;
+         else
+         {
+             digits[i]+=1;
+             return digits;
+         }
+        }
+        if(digits[0]==0)          //不用多加一步判断，因为从for循环出来的 要不直接return 要不就是全是0
+        {
+            digits.insert(digits.begin(),1);  //第一种方法直接在首行插入  不能直接用digits[i]=1来动态添加元素
+            return digits;
+        }
+
+        return digits;
+    }
+};
+
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        int leg=digits.size();
+        
+        for(int i=leg-1;i>=0;i--)
+        {
+         if(digits[i]==9)
+            digits[i]=0;
+         else
+         {
+             digits[i]+=1;
+             return digits;
+         }
+        }
+    
+            digits[0]=1;
+            digits.push_back(0);  //第二种方法 首元素变1  末尾添0
+        return digits;
+    }
+};
