@@ -40,7 +40,8 @@ public:
     
     void reverse(int* start,int *end)
     {
-        while(start<end)  //start++是先+1后返回没加1的初值副本比较 实际上已经加1了，如果后续不用不产生影响。也可以理解为经过比较操作，start已经加1
+        while(start<end)  //用地址值来循环
+                       //start++是先+1后返回没加1的初值副本比较 实际上已经加1了，如果后续不用不产生影响。也可以理解为经过比较操作，start已经加1
         {          //和for循环不同 for是先执行循环体在进行i++或者++i操作  并且i++不能作左值 他返回的是副本变量 ++i可以 返回是i的引用
             int tmp=*start;
             *start=*end;
@@ -65,6 +66,44 @@ public:
         }
         for(int i=0;i<n;i++)
         reverse(&matrix[i][0],&matrix[i][n-1]);
+        return;
+        
+    }
+};
+
+
+
+class Solution {
+public:
+    
+    void reverse(vector<int>& matrix)  //参数传递数组的引用
+    {
+        int n=matrix.size()-1;
+        int start=0;
+        while(start<n)         //用元素个数来循环
+        {  int tmp= matrix[start];
+            matrix[start]= matrix[n];
+            matrix[n]=tmp;
+         start++;
+         n--;
+            
+        }    
+    }
+    void rotate(vector<vector<int>>& matrix) {
+        if(matrix.size()==0||matrix.size()==1)
+            return;
+        int n=matrix.size();
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<i;j++)
+            {
+                swap(matrix[i][j],matrix[j][i]);
+            }
+            
+            
+        }
+        for(int i=0;i<n;i++)
+        reverse(matrix[i]);
         return;
         
     }
