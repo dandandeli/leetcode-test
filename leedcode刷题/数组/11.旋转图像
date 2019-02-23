@@ -1,0 +1,71 @@
+矩阵旋转90度核心：先对称交换 然后反转
+1class Solution {
+public:
+    
+    void reverse(int* start,int *end)  //传首尾指针参数
+    {
+        while(start<end)  //start++是先+1后返回没加1的初值副本比较 实际上已经加1了，如果后续不用不产生影响。也可以理解为经过比较操作，start已经加1
+        {          //和for循环不同 for是先执行循环体再进行i++或者++i操作  并且i++不能作左值 他返回的是副本变量 ++i可以 返回是i的引用
+                         //i++和++i单独使用时效果是一样的  都是+1
+            int tmp=*start;
+            *start=*end;
+            *end=tmp;
+            start++;
+            end--;
+            
+        }    
+    }
+    void rotate(vector<vector<int>>& matrix) {
+        if(matrix.size()==0||matrix.size()==1)
+            return;
+        vector<vector<int>> a(matrix);
+        int n=matrix[0].size();
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)   //每一行每一行的对称交换 因为上一行对称交换后会影响下一行交换时的值 所以用另一个矩阵数组保存原始的值
+            {
+                matrix[i][j]=a[j][i];
+            }
+            reverse(&matrix[i][0],&matrix[i][n-1]); //每一行交换完后 反转整行
+            
+        }
+        return;
+        
+    }
+};
+
+
+class Solution {
+public:
+    
+    void reverse(int* start,int *end)
+    {
+        while(start<end)  //start++是先+1后返回没加1的初值副本比较 实际上已经加1了，如果后续不用不产生影响。也可以理解为经过比较操作，start已经加1
+        {          //和for循环不同 for是先执行循环体在进行i++或者++i操作  并且i++不能作左值 他返回的是副本变量 ++i可以 返回是i的引用
+            int tmp=*start;
+            *start=*end;
+            *end=tmp;
+            start++;
+            end--;
+            
+        }    
+    }
+    void rotate(vector<vector<int>>& matrix) {
+        if(matrix.size()==0||matrix.size()==1)
+            return;
+        int n=matrix.size();
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<i;j++) //每一行只需要对下三角执行交换操作 即可完成对整个矩阵的对称交换且不影响其他行的值 不需要再用其他数组存储初值
+            {
+                swap(matrix[i][j],matrix[j][i]);
+            }
+            
+            
+        }
+        for(int i=0;i<n;i++)
+        reverse(&matrix[i][0],&matrix[i][n-1]);
+        return;
+        
+    }
+};
