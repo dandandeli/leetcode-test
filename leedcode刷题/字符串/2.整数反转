@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int reverse(int x) {
+        long long ans = 0;   //直接用long long64位存储
+	    while (x != 0) {         //不等大于0  因为可能小于0           
+      ans = ans * 10 + x % 10;  //从个位数往前一个一个计算 然后相加
+            x /= 10;   提取下一位
+        }
+	    return (ans > INT_MAX || ans < INT_MIN) ? 0 : ans; // INT_MAX表示最大值  INT_MIN表示最小值
+    }
+};  
+
+
+
+
+class Solution {
+public:
+    int reverse(int x) {
+        int sum=0,cur;
+        while(x!=0)
+        {
+         cur=x%10;
+         x=x/10;
+         if(sum>INT_MAX/10||(sum==INT_MAX/10&&cur>7)) return 0;
+         if(sum<INT_MIN/10||(sum==INT_MIN/10&&cur<-8)) return 0;
+         sum=sum*10+cur;
+        }
+        return sum;
+    }
+};
