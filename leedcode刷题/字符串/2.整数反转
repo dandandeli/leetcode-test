@@ -6,7 +6,7 @@ public:
       ans = ans * 10 + x % 10;  //从个位数往前一个一个计算 然后相加
             x /= 10;   提取下一位
         }
-	    return (ans > INT_MAX || ans < INT_MIN) ? 0 : ans; // INT_MAX表示最大值  INT_MIN表示最小值
+	    return (ans > INT_MAX || ans < INT_MIN) ? 0 : ans; // INT_MAX表示int型32位的最大值  INT_MIN表示最小值
     }
 };  
 
