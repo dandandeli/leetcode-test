@@ -1,0 +1,52 @@
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        vector<char> m;
+        int n=s.size();
+        if(n<=1) return 1;
+        for(int i=0;i<n;i++)
+        {
+            if(isalpha(s[i])||isdigit(s[i]))    //验证是否是字母或者数字
+            {
+               s[i]=tolower(s[i]);               //逐个把大写字母转换成小写 非字母字符不作出处理   也可以先转换字符串 载验证
+                m.push_back(s[i]);               //把转换后的小写字母和数字 写入字符数组
+            }
+        }
+        int start=0;
+        int end=m.size()-1;            //不能用n 因为新的字符数组 m大小已近改变 没有了空格和其他符号
+        while(start<end)
+        {
+        if(m[start]!=m[end])   
+            return 0;
+        else
+            start++;
+            end--;
+        }
+        return 1;
+    }
+};
+
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        string str="";
+        int len=s.length();
+        int lenStr=0;
+        for(int i=0;i<len;i++){
+            if((s[i]>='a'&&s[i]<='z')||(s[i]>='0'&&s[i]<='9')){
+                str+=s[i];
+                lenStr++;
+            }
+            else if(s[i]>='A'&&s[i]<='Z'){
+                str+=(s[i]-'A'+'a');
+                lenStr++;
+            }
+        }
+        for(int i=0;i<lenStr/2;i++){
+            if(str[i]!=str[lenStr-i-1]){
+                return false;
+            }
+        }
+        return true;
+    }
+};
