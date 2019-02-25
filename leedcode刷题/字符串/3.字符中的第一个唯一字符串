@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int firstUniqChar(string s) {
+        map<char,int> m;   //map中key值是唯一的 ，value可以不唯一,所以如果key值相同插入，会被覆盖
+                           //map中的查找例如count 根据key值进行查找
+        int n=s.length();
+        for(int i=0;i<n;i++)
+        {
+            if(m.count(s[i])) m[s[i]]=1;
+            else m[s[i]]=0;
+        }
+        int j;
+        for(j=0;j<n;j++)
+        {
+            if(!m[s[j]])
+                return j;
+        }
+      
+        return -1;
+    }
+};
+
+class Solution {
+public:
+   int firstUniqChar(string s) {
+	vector<int> m(26,0);
+      int n=s.size();
+	for (int i = 0; i < n; ++i)
+    {
+		m[s[i] - 'a']++;           //用另一个数组标注每个字母出现的次数
+	}
+	for (int i=0; i<n; ++i)
+	{
+		if (m[s[i]-'a'] == 1)  //出现次数等于1  返回坐标
+			return i;
+	}
+	return -1;
+    }
+};
+    
