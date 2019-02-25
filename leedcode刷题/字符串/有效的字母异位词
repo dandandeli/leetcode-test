@@ -1,0 +1,31 @@
+class Solution {
+public: 
+    bool isAnagram(std::string s, std::string t) {
+        int sArray[26] = {0}, tArray[26] = {0}, i = 0;  //用另一个数组标注字符串中各个字符出现的次数吗，如果各个字符出现次数相等则相同
+        int sLen = s.length(), tLen = t.length();
+        if(sLen != tLen)
+            return 0;
+        while(i < sLen) {
+            sArray[s[i] - 'a']++;
+            tArray[t[i++] - 'a']++; 
+        }
+        i = 0;
+        while(i < 26) {
+            if(sArray[i] != tArray[i])  //如果次数不等就返回0
+                return 0;
+            i++;
+        }
+        return 1;
+        
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        sort(s.begin(),s.end());  //直接对两个字符串排序，看排序完后是否相等
+        sort(t.begin(),t.end());
+        if(s==t)
+            return true;
+        else 
+            return false;
+        
+    }
+};
