@@ -1,0 +1,99 @@
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        int h=haystack.size();
+        int n=needle.size();
+        if(n==0)  return 0;
+        if(n>h) return -1;  //子字符串大于母字符串 返回-1
+        int k=0,loc=-1;         //k记录母字符串下一次寻找的起始位置 loc记录第一元素相等的位置
+        for(int i=0;i<n;i++)
+        {   int j;
+            for(j=k;j<h;j++)
+            {
+              if(needle[i]==haystack[j])
+              {
+                  if(loc==-1)
+                  loc=j;   //记录首字母匹配成功的位置
+                  k=j+1;   //记录下一次查找的起始位置
+                  break;
+              }
+            else
+              {  
+                if(loc!=-1)  //即匹配了一部分 后面不相等时
+                {
+                   k=loc+1; //从上一次首字母匹配的下一个位置开始匹配
+                    loc=-1; 
+                }
+                else
+                k=j+1;   //即首字母还没有匹配 查找下一个位置
+                i=-1;    //循环还从i等于0重新匹配
+                break;
+              }
+            }
+            if(j>=h&&i<n) //如果查找完母字符串 子字符串还有一本分未查找完
+                return -1;
+        }
+        return loc; 
+    }
+};
+
+
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        int nSizeH = haystack.size();
+        int nSizeN = needle.size();
+        if(!nSizeN) return 0;
+        if(nSizeH<nSizeN) return -1；
+        for(int i=0; i<nSizeH,SizeH-i>=nSizeN; i++) //i表示匹配的首字母位置 SizeH-i>=nSizeN保证h剩下的元素个数要大于n
+            if(haystack[i]==needle[0])  //先匹配到首字母  在考虑接下来的情况
+            {
+                int j=1;
+                for(1; j<nSizeN; j++)
+                {
+                    if(haystack[i+j] != needle[j])
+                        break;
+                }
+                if(j>=nSizeN) return i; //如果n的所有字符已经匹配完 返回i 否则从i+1继续寻找
+            }
+        }
+        return -1;
+    }
+};
+
+
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        if (needle.size()==0)
+            return 0;
+        if (needle.size() > haystack.size())
+            return -1;
+        int j=0;//needle指针，表示n已经匹配的字符的个数
+        int i=0;
+        for (i = 0; i < haystack.size(); ++i) {
+            if (j==needle.size()){//判断完成
+                return i - needle.size(); //此时i的位置减去n的长度就是起始位置
+            }
+            if (haystack[i] == needle[j]){
+                j++;
+            } else{
+                i -= j;//减去已经匹配的位数  就是下一次要开始匹配的位置
+                j=0;
+            }
+        }
+        if (j==needle.size()){//判断完成
+            return i - needle.size();
+        }
+        return -1;
+    }
+};
+
+
+
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+return haystack.find(needle);           //find（字符串str，位置loc）从loc位置 默认从头开始 开始 查找包含字符串str 返回首位置
+    }
+};
