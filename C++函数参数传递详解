@@ -74,3 +74,5 @@ void PutArray3(int p[10])
 void PutArray5(vector<int>verc) 
 { 
 }
+
+局部变量的引用和指针不能作为函数返回值，会失效
