@@ -1,0 +1,45 @@
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        int n=strs.size();  //n表示字符串的个数
+        string pre;  //字符串不赋初值默认为空
+        if(n==0) return pre;
+        int min=strs[0].size(); //表示所有字符串的虽小长度  min变量必须先赋初值在进行比较 养成初始化的好习惯
+        for(int i=1;i<n;++i)
+        {
+           if(strs[i].size()<min)
+               min=strs[i].size();
+        }
+        for(int j=0;j<min;++j)       //for循环的嵌套关系 快指针在内循环 慢指针在外循环 即一个外指针循环一次 内指针循环n次
+        {
+            int i=0;
+            while(i<n-1)
+            {
+              if(strs[i][j]==strs[i+1][j])
+                  i++;
+              else
+                  return pre;
+            }
+            pre+=strs[0][j]; //pre.push_back(strs[0][j]);也可以 参数必须是字符变量 如果是常量需要加引号 例如pre.push_back('s');        }
+        return pre;
+    }
+};
+
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        if((strs.size()==0)||(strs[0].size()==0))return "";
+        if(strs.size() == 1) return strs[0];  //只有一个字符串 直接返回
+        string res;
+        int len=strs.size();
+        for(int i=0;;i++){
+            char temp=strs[0][i];
+            for(int j=0;j<len;j++){
+                if(strs[j][i]!=temp)
+                    return res;
+            }
+            res+=temp;
+        }
+        return res;
+    }
+};
