@@ -1,0 +1,87 @@
+class Solution {
+public:
+    string countAndSay(int n) {
+        string a[40];  //数组的长度不能是变量即a[n]是错误的 可以用int *a = new int[n];
+        a[0]="1";
+        a[1]="11";
+        if(n==1)
+            return a[0];
+        if(n==2)
+            return a[1];
+        for(int i=2;i<n;i++)
+        {    
+            int count=1;
+            for(int j=0;j<(a[i-1].size()-1);j++) 
+            {
+                if(a[i-1][j]==a[i-1][j+1])
+                {
+                    count++;
+                    if(j+1==(a[i-1].size()-1))    //最后两位相等的情况
+                    {
+                    a[i].push_back(count+'0');  //数字与字符之间的转换  字符是用ASCII码表示的 1转换成‘1’,要加上‘0’  同理‘1’要转换成1 要减去‘0’
+                    a[i].push_back(a[i-1][j]);
+                    }
+                } 
+                else
+                {
+                    a[i].push_back(count+'0');
+                    a[i].push_back(a[i-1][j]);
+                    count=1;
+                    if(j+1==(a[i-1].size()-1))//最后两位不等的情况
+                    {
+                        a[i].push_back(count+'0');
+                        a[i].push_back(a[i-1][j+1]);
+                    }                             
+                    
+                }
+                    
+            }
+            
+        } 
+        return a[n-1];   
+    }
+};
+
+
+
+class Solution {
+public:
+    string countAndSay(int n) {
+        vector<int> a[40];
+        a[0]={1};
+        a[1]={1,1};  //vector可以直接用数组赋值
+        for(int i=2;i<n;i++)
+        {    
+            int count=1;
+            for(int j=0;j<a[i-1].size()-1;j++) 
+            {
+                if(a[i-1][j]==a[i-1][j+1])
+                {
+                    count++;
+                    if(j+1==(a[i-1].size()-1))    //最后两位相等的情况
+                    {
+                    a[i].push_back(count);
+                    a[i].push_back(a[i-1][j]);
+                    }
+                } 
+                else
+                {
+                    a[i].push_back(count);
+                    a[i].push_back(a[i-1][j]);
+                     count=1;
+                    if(j+1==(a[i-1].size()-1))//最后两位不等的情况
+                    {
+                        a[i].push_back(count);
+                        a[i].push_back(a[i-1][j+1]);
+                    }                             
+                }  
+            }
+            
+        }
+        int m=a[n-1].size();
+        string b(m,'a');
+        for(int i=0;i<m;i++)
+            b[i]=a[n-1][i]+'0';        
+        return b;   
+    }
+};
