@@ -61,3 +61,16 @@ int sum(int a[])
                    //数组作为参数传递函数时，实际上只有数组的首地址作为指针传递给函数 int a[]等价于int *a
                    //在只有地址信息情况下，是无法知道数组里有多少个元素
 }
+所以要想传递数组的大小 有以下几种方法：
+void PutArray1(int *p,int length) 
+{   
+} 
+void PutArray2(int p[],int length) 
+{ 
+} 
+void PutArray3(int p[10])      
+{ 
+} 
+void PutArray5(vector<int>verc) 
+{ 
+}
