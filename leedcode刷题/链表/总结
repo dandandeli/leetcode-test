@@ -1,0 +1,36 @@
+C++中用指针来指向链表中的节点
+
+typedef struct LNode
+{
+}LNode, *LinkList; 把 struct LNode* 定义成了新结构体类型 LinkList。这个类型是一个结构体的指针
+
+struct Point {
+    int x;
+    int y;
+}p1;      //p1是一个结构体变量  即等价于Point p1;
+
+typedef struct Point {        定义一个结构体类型要用typedef
+    int x;
+    int y;
+}p2;      //p2是一个结构体类型 是struct Point的别名
+
+
+
+结构体指针变量*p对结构体的成员变量或者函数操作有两种方式：
+p->next; p->val;  指针p所指向的成员
+(*p).next; (*p).val;
+对于链表操作
+LinkList CreateList1(LinkList &L)
+{
+LNode *s;
+L=(LinkList)malloc(sizeof(LNode));
+L->next=NULL;创建头节点。头指针始终指向链表的第一个节点，而头结点是带头结点链表中的第一个节点，节点内通常不存储信息。
+return L;  //L其实也是一个指针
+}
+对于链表节点操作
+LNode *GetElem(LinkList L, int i)
+{
+LNode *p;
+p=L->NEXT;
+return p;
+}
