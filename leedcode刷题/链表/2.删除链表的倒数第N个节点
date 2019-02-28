@@ -1,0 +1,107 @@
+class Solution {                       //注意看清题目  链表到底有没有头结点。本题没有头结点，第一个就是数据节点。但是头指针始终指向第一个数据节点
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {  //head指向的就是第一个数据节点  并不是 头结点
+        ListNode *p,*q;
+        int count=0;
+        if(head==NULL||n<1)
+        return head;        
+        p=head;
+        while(p!=NULL)
+        {
+            p=p->next;
+            count++;
+        }
+        if(n>count)
+        return head;
+        if(n==count)
+        return head->next;
+          p=head;
+          for(int i=1;i<count-n;i++)
+           {
+            p=p->next;
+          }
+           p->next=p->next->next;
+        
+       
+        return head;
+    }
+};
+
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode *p,*q;
+        int count=0;
+        if(!head)
+        return NULL;        
+        p=head;
+        while(p)
+        {
+            p=p->next;
+            count++;
+        }
+        if(n==count)
+            head=head->next;
+        else
+        {
+             p=head;
+        for(int i=1;i<count-n;i++)
+        {
+            p=p->next;
+        }
+        q=p->next;
+        p->next=q->next;
+        }
+       
+        return head;
+    }
+};
+
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+      ListNode *fast,*slow;    //利用两个指针 一个快指针 一个慢指针  快指针先走n次 慢指针开始走 当快指针走到尾 慢指针刚好走到倒数n+1个
+        if(!head)
+            return head;
+        fast=head;
+        slow=head;
+        for(int i=1;i<n;i++)
+            fast=fast->next;
+        if(!fast->next)
+        return head->next;
+        fast=fast->next;
+        while(fast->next)
+        {   
+            slow=slow->next;
+            fast=fast->next;
+        }
+        slow->next=slow->next->next;
+        return head;
+    }
+};
+
+没有头结点比较麻烦 因为指针刚开始就指向了第一个数据节点，所以可以添加一个哑节点作为辅助，作为头结点
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+      ListNode *fast,*slow;
+        ListNode *dummy=new ListNode(0);  //创造辅助节点dummy 需要动态分配内存空间  要不然不能做左值
+                                          //哑节点（dummy Node）是一个被人为创建的节点，虽然其内容为NULL，但是它在堆中有占有一定的空间。
+        dummy->next=head;
+        if(!head)
+            return head;
+        fast=head;
+        slow=dummy;
+        for(int i=1;i<n;i++)
+            fast=fast->next;
+        if(!fast->next)
+        return head->next;
+        while(fast->next)
+        {   
+            slow=slow->next;
+            fast=fast->next;
+        }
+        slow->next=slow->next->next;
+        return head;
+    }
+};
