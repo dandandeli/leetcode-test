@@ -1,0 +1,68 @@
+class Solution {
+public:
+    ListNode* getElem(int i,ListNode* head)
+        {
+        ListNode* dummy=new ListNode(0);
+        dummy->next=head;
+            for(int j=1;j<=i;j++)
+            {
+               dummy=dummy->next;
+            }
+            return dummy;
+        }
+    ListNode* reverseList(ListNode* head) {
+        ListNode* p=head;
+        int count=0;
+        while(p)
+        {
+            p=p->next;
+            count++;       //先获取链表的长度 即节点个数
+        }
+        int i=1;
+        while(i<count)
+        {
+            swap(getElem(i,head)->val,getElem(count,head)->val);  //swap函数通过传递引用参数 进行交换的
+            i++;
+            count--;
+        }
+        return head;
+    }
+};
+
+另一种思路：可以用数组存储链表各个节点的值，然后对数组进行反转，最后对各个节点的值重新赋值
+
+迭代法：利用三个指针 pre、cur、next,一个一个节点的指针指向反转
+class Solution {
+public:
+    
+    ListNode* reverseList(ListNode* head) {
+        if(head==NULL||head->next==NULL)
+            return head;
+        ListNode* pre=head;
+        ListNode* cur=head->next;
+        ListNode* next=cur->next;
+        head->next=NULL;
+        while(cur)
+        {
+            next=cur->next;
+            cur->next=pre;
+            pre=cur;
+            cur=next;
+        }
+        return pre;
+    }
+};
+
+递归法：
+class Solution {
+public:
+    
+    ListNode* reverseList(ListNode* head) {  //反转以head为头结点的链表
+        if(head==NULL||head->next==NULL) //边界条件 递归出口
+            return head;
+       ListNode *cur=reverseList(head->next);  //递归调用直到反转以最后一个节点为头结点的链表  把多节点链表层层转换为单节点链表求解
+        head->next->next=head;  //反转后头结点的下一个节点是它上一个节点
+        head->next=NULL; //新加的节点下一个值先赋值为空
+        return cur;
+    }
+};
