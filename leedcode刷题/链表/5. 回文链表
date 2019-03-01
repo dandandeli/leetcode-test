@@ -1,0 +1,56 @@
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        if(!head||!head->next)
+            return 1;
+        ListNode* pre=head;
+       vector<int> a;
+        while(pre)
+        {
+        a.push_back(pre->val);
+        pre=pre->next;
+        }
+三种比较方法：
+  1.用数组直接和链表节点值比较    
+     for(int i=a.size()-1;i>=0;i--)
+        {
+            if(a[i]==head->val)
+            {
+                head=head->next;
+            }
+            else
+                return false;
+        }
+        return true;
+    }
+};
+2.直接用数组比较
+ while(i<n)
+        {
+            if(a[i]==a[n])
+            {
+                i++;
+                n--;
+            }
+            else
+                return false;
+        }
+3.用stack比较
+stack<int> a;
+        while(pre)
+        {
+        a.push(pre->val);
+        pre=pre->next;
+        }
+        int i=0,n=a.size();
+       for(i=0;i<n;i++)
+       {
+         if(head->val==a.top())
+         {
+             head=head->next;
+             a.pop();
+         }
+           else
+               return false;
+       }
+        return true;
