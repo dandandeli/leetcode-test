@@ -54,3 +54,76 @@ stack<int> a;
                return false;
        }
         return true;
+        
+另一种方法  反转一半的链表节点指针 令1->2->2->1变成1<-2 2->1 然后比较前一半和后一半链表节点的值
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) 
+    {
+        if(head==NULL) return true;
+       int count=0;
+        ListNode* cur=head;
+        ListNode* p=head;
+        ListNode* q=NULL;
+        ListNode* pr;
+        while(cur!=NULL)
+            
+        {
+            count++;
+            cur=cur->next;
+        }
+        if(count==3)
+        {
+            if(head->val==head->next->next->val)
+                return true;
+            else
+                return false;
+        }
+       if(count==2)
+       {
+           if(head->next->val==head->val)
+               return true;
+           else 
+               return false;
+       }
+        if(count==1) return true;   
+       // double mid=((x%2)==0)?(x/2):(x/2+0.5);
+        int mid =count/2;
+        if(count%2==0)
+        for(int i=0;i<mid;i++)
+        {
+           
+        
+            pr=p->next;
+            p->next=q;
+            q=p;
+            p=pr; 
+        
+        }
+        else
+        {
+            for(int i=0;i<mid;i++)
+    
+           
+            {
+            pr=p->next;
+            p->next=q;
+            q=p;
+            p=pr; 
+            }
+        p=pr->next;
+        
+        } 
+        while(p!=NULL)
+        {
+           if( (q->val)!=(p->val))
+               return false;
+            else
+            {
+                q=q->next;
+                p=p->next;
+            }
+        }
+        return true;
+    }
+};
