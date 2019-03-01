@@ -89,18 +89,18 @@ public:
         if(count==1) return true;   
        // double mid=((x%2)==0)?(x/2):(x/2+0.5);
         int mid =count/2;
-        if(count%2==0)
+        if(count%2==0) count是偶数
         for(int i=0;i<mid;i++)
         {
            
         
-            pr=p->next;
+            pr=p->next;  反转前半链表节点的指针方向
             p->next=q;
             q=p;
             p=pr; 
         
         }
-        else
+        else    count是奇数
         {
             for(int i=0;i<mid;i++)
     
@@ -111,7 +111,7 @@ public:
             q=p;
             p=pr; 
             }
-        p=pr->next;
+        p=pr->next;  p需要跳过链表中间节点 到下半链表第一节点
         
         } 
         while(p!=NULL)
