@@ -1,0 +1,78 @@
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        if(!l1)             //l1空的情况
+            return l2;
+        if(!l2)             //l2空的情况
+            return l1;
+        ListNode *Newlist,*p=l1,*q=l2; //Newlist指向合并后的新链表头结点 p指向l1头节点 q指向l2头结点
+        if(p->val<=q->val)             //也可以申请一个哑结点 dummy->next指向l1或者l2；
+        {
+           Newlist=p;
+            p=l1->next;
+        }
+        else
+        {
+           Newlist=q;
+            q=l2->next;
+        }
+        while(p&&q)
+        {
+            if(p->val<=q->val)
+            {
+             Newlist->next=p;
+             Newlist=p;
+             p=p->next;
+            }
+            else
+            {
+                Newlist->next=q;
+                Newlist=q;
+                q=q->next;
+            }
+        }
+        if(p)  //l2链表已经合并完  不用while是因为 p后面都是连接好的 
+        {
+             Newlist->next=p;
+             Newlist=p;
+             p=p->next;   
+        }
+        if(q)  //l1链表已经合并完
+        {
+                Newlist->next=q;
+                Newlist=q;
+                q=q->next;
+        }
+        return l1->val<=l2->val?l1:l2;
+        
+    }
+};
+
+
+
+更为简洁的版本：
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        ListNode *res = new ListNode(-1), *cur = res;
+        while(l1 && l2) {
+            if(l1->val <= l2->val) {
+                cur->next = l1;
+                cur = cur->next;
+                l1 = l1->next;
+            }
+            else {
+                cur->next = l2;
+                cur = cur->next;
+                l2 = l2->next;
+            }
+        }
+        if(l1) {
+            cur->next = l1;
+        }
+        if(l2) {
+            cur->next = l2;
+        }
+        return res->next;
+    }
+};
