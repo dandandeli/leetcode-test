@@ -1,0 +1,64 @@
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+       set<ListNode*> tmp;           //用set集合来判断元素是否重复  因为set中每个元素最多出现一次
+        while(head)
+        {
+             if(tmp.count(head))      //head出现过
+            return 1;
+        else
+        {
+            tmp.insert(head);         //把head插入到set集合中
+            head=head->next;
+        }
+        }
+       return 0;
+    }
+};
+
+class Solution {                    //用两个不同速度的快慢指针来遍历链表 慢指针每次移动一步 快指针移动两步 如果有环 快指针早晚会追山慢指针
+                                    //如果没有环  快指针会先到链表尾部
+public:
+    bool hasCycle(ListNode *head) {
+        if(!head||!head->next)        //当链表为空或者只有一个元素时  没有环
+            return 0;
+        ListNode *slow=head,*fast=head->next;
+       
+        while(fast&&fast->next)          //如果后边出现指针的next或者next的next 需要先判断指针本身是否为空或者next是否为空
+                                         //要不然在循环体内会产生指针越界，即空指针指向空指针的next。即首先需要保证指针自身非空 才能用它的next值
+        {
+            if(head==fast)
+                return 1;
+            else
+            {
+                head=head->next;
+                fast=fast->next->next;
+            }
+        }
+        return 0;
+    }
+};
+
+class Solution {           //把遍历过的指针都只想head 如果为遍历过的指针有指向head的 说明有环
+public:
+    bool hasCycle(ListNode *head) {
+        if(!head||!head->next)
+            return 0;
+        ListNode *slow=head->next,*tmp;
+       
+        while(1)
+        {
+            if(!slow)
+                return 0;
+            if(slow==head)
+                return 1;
+            else
+            {
+                tmp=slow;
+               slow=slow->next;
+               tmp->next=head;
+            }
+        }
+        return 0;
+    }
+};
