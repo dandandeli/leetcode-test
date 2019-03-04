@@ -1,0 +1,107 @@
+题目要求：层次遍历二叉树 并分别把每一层树输出出来
+思路：层次遍历每一层 把每一层的元素输入到队列和一维数组中，取队首元素并输出以队列的长度做循环，计算下一层的元素个数输入到队列和一维数组中...
+
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        queue<TreeNode*> a; //用队列来层次遍历每个节点，。每次取队首元素，检查他的左右子树 插入队列
+        vector<vector<int>> b;
+        if(!root)
+            return b;
+        a.push(root);
+        vector<int> v{root->val};  //初始化为第一层队列 
+        b.push_back(v);
+        int count=1,ncount=0;  count记录上一层的个数 ncount记录下一层的个数
+        while(!a.empty())
+        {  
+            vector<int> v;  //存储每一层的节点
+            for(int i=0;i<count;i++)
+            { 
+            TreeNode *tmp=a.front();
+            a.pop();
+            if(tmp->left)
+            {
+                v.push_back(tmp->left->val);  //直接记录下一层的节点
+                a.push(tmp->left);
+                ncount++;
+            }
+           
+            if(tmp->right)
+            {
+                v.push_back(tmp->right->val);
+                a.push(tmp->right);
+                ncount++;
+            }
+            }
+            count=ncount;
+            ncount=0;
+            if(!v.empty()) //防止最后一层空节点插入
+            b.push_back(v);
+        }
+        return b;
+    }
+};
+
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        queue<TreeNode*> a;
+        vector<vector<int>> b;
+        if(!root)
+            return b;
+        a.push(root);
+        int count=1,ncount=0;
+        while(!a.empty())
+        {  
+            vector<int> v;  //存储每一层的节点
+            for(int i=0;i<count;i++)
+            { 
+            TreeNode *tmp=a.front();
+            a.pop();
+            v.push_back(tmp->val);  //先记录上一层的节点
+            if(tmp->left)
+            {
+                a.push(tmp->left);
+                ncount++;
+            }
+           
+            if(tmp->right)
+            {
+                a.push(tmp->right);
+                ncount++;
+            }
+            }
+            count=ncount;
+            ncount=0;
+            b.push_back(v);
+        }
+        return b;
+    }
+};
+
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> res;
+        if (root == nullptr) return res;
+        
+        queue<TreeNode*> q;
+        q.push(root);
+        
+        while (!q.empty()) {
+            vector<int> oneLevel;
+            for (int i = q.size(); i > 0; --i) {  //直接用q大小来记录每一层的个数  因为每一个for循环结束后 才会重置i的值
+                TreeNode* t = q.front();
+                q.pop();
+
+                oneLevel.emplace_back(t->val);
+                if (t->left != nullptr) q.push(t->left);
+                if (t->right != nullptr) q.push(t->right);    
+            }
+            
+            res.emplace_back(oneLevel);
+        }
+        
+        return res;
+    }
+};
