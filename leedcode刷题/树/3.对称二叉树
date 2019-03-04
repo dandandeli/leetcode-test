@@ -1,0 +1,101 @@
+这道题其实和中序遍历无关  蒙对的一种方法
+
+class Solution {      //中序遍历二叉树各个节点并存储在数组中  如果数组是对称的 二叉树就是对称的
+                        //但是由于二叉树可能会有左子树或右子树为空节点 所以需要补全为全二叉树
+public:
+    void Midorder(TreeNode* root,vector<int>& a){
+        if(root&&root->left&&!root->right)  //先判断是否只有左子树为空，如果是输入0
+            a.push_back(0);
+        if(root)
+        {
+            Midorder(root->left,a);
+            a.push_back(root->val);
+            Midorder(root->right,a);
+        }
+        
+        if(root&&root->right&&!root->left)
+            a.push_back(0);
+    }
+    
+
+    bool isSymmetric(TreeNode* root) {
+        vector<int> a;
+        if(!root)
+        return true;
+        Midorder(root,a);
+        int i=0,end=a.size()-1;
+        while(i<end)
+        {
+            if(a[i]!=a[end])
+            return false;
+            else
+            {
+                i++;
+                end--;
+            }
+        }
+        return true;
+    }
+};
+
+class Solution {      //创建两颗树  两棵树对称 则第一棵树左子树等于第二课右子树 右子树等于第一颗左子树
+public:
+    bool Midorder(TreeNode* p,TreeNode* q)
+    {
+        if(!p&&!q)
+            return true;
+        if(!p)
+            return false;
+        if(!q)
+            return false;
+        if(p->val==q->val)
+            return Midorder(p->left,q->right)&&Midorder(p->right,q->left);
+        return false;
+    }
+
+    bool isSymmetric(TreeNode* root) {
+       TreeNode *p=root,*q=root;
+        
+        return Midorder(p,q);
+        
+    }
+};
+
+class Solution {     
+public:
+
+    bool isSymmetric(TreeNode* root) {
+       
+        if(!root)
+            return true;
+       queue<TreeNode*> s1;
+       queue<TreeNode*> s2;
+       s1.push(root);
+       s2.push(root);
+        while(!s1.empty()&&!s2.empty())
+        {
+            TreeNode *p=s1.front(),*q=s2.front();
+            s1.pop();
+            s2.pop();
+           if(!p&&!q) 
+           {
+               continue;
+           }
+           if(!p||!q) return false;
+           if(p->val==q->val)
+           {
+              
+               s1.push(p->left);
+               s1.push(p->right);
+               s2.push(q->right);
+               s2.push(q->left);
+           }
+            else
+                return false;
+        }
+        if(!s1.empty()||!s2.empty())
+            return false;
+        return true;
+        
+    }
+};
