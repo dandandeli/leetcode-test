@@ -1,0 +1,70 @@
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {  //使用辅助数组nums3存储nums1或者最终结果  因为nums1在比较中数值会被覆盖 
+        int i=0,j=0;
+        vector<int> nums3;
+        while(i<m&&j<n)
+        {
+
+          if(nums1[i]<=nums2[j])
+          {
+              nums3.push_back(nums1[i]);
+              i++;
+          }
+          else
+          {
+              nums3.push_back(nums2[j]);
+              j++;
+          }
+        }
+        while(i<m)
+        {
+              nums3.push_back(nums1[i]);
+            i++;
+        }
+        while(j<n)
+        {
+              nums3.push_back(nums2[j]);
+            j++;
+        }
+        nums1.assign(nums3.begin(),nums3.end());  //vector数组之间的互相赋值
+        //nums1=nums3;
+        
+    }
+};
+
+
+lass Solution {          //从后往前排 不需要使用额外的辅助数组 因为nums1后边预留了n个空间 可以直接对nums1进行赋值
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        int len = nums1.size();
+        if (len < m+n || n == 0)
+        {
+            return;
+        }
+        
+        int j = m+n-1;
+        int k = m - 1;
+        int l = n - 1;
+        
+        while( k >= 0 && l >= 0)
+        {
+            nums1[j--] = (nums1[k] > nums2[l]) ?  nums1[k--] : nums2[l--];
+        }
+        
+        if ( k != -1 )
+        {
+            while ( j >= 0)
+            {
+                nums1[j--] == nums1[k--];
+            }
+        }
+        else if (l != -1)
+        {
+            while ( j >= 0)
+            {
+                nums1[j--] = nums2[l--];
+            }
+        }
+    }
+};
