@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int min,pro=0,maxp=0;  //记录股票最低值 Pro记录每次的利润 maxp记录最大利润
+        if(prices.size()==0)
+            return 0;
+        min=prices[0];
+        for(int i=1;i<prices.size();i++)
+        {
+               if(prices[i]>min)   //只要价钱比最低值高  计算一次利润
+                   pro=prices[i]-min;
+               else
+                   min=prices[i];//价钱比最低值低 更新最低值
+                maxp=max(pro,maxp); //记录每次计算利润后的利润最大值
+        }
+        return maxp;
+    }
+};
