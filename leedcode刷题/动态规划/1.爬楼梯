@@ -1,0 +1,53 @@
+
+class Solution {
+public:
+    int climbStairs(int n) {
+        vector<int> a(n+1); //等价于  int *a=new int[n+1];
+        if(n==0)
+            return 0;
+        if(n==1)
+        return 1;
+    
+        a[1]=1;
+        a[2]=2;
+        for(int i=3;i<n+1;i++)
+        {
+            a[i]=a[i-1]+a[i-2];
+        }
+        return a[n];
+    }
+};
+
+class Solution {  //普通递归时间效率太差，数字大的时候会有很多重复计算
+public:
+    int climbStairs(int n) {
+        if(n==0)
+        return 0;
+        if(n==1)
+        return 1;
+         if(n==2)
+        return 2;
+        int a=climbStairs(n-1)+climbStairs(n-2);
+        return a;
+    }
+    
+};
+
+
+class Solution {
+public:
+    int climbStairs(int n) {
+        if(n==1)
+            return 1;
+        if(n==2)
+            return 2;
+        int k=3,i=1,j=2,tar;
+        for(int k=3;k<=n;k++)   //滚动数组 节省空间 因为每一个数只与前两个数有关
+        {
+            tar=i+j;
+            i=j;
+            j=tar;
+        }
+        return tar;
+    }
+};
