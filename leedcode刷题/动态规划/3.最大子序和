@@ -1,0 +1,69 @@
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int sum=0,Max=nums[0],maxsum=nums[0];
+                                             //if(nums.size()==1) return nums[0];  
+        int i;
+        for( i=0;i<nums.size();i++)     //防止所有元素都是负数的情况 i=0包含只有一位元素且为负数的情况
+        { 
+            if(nums[i]<0)
+                Max=max(nums[i],Max); //Max记录元素中的最大值
+            else break;
+        }
+        if(i==nums.size())  //如果i等于元素个数  则表示数组全部都是负值  输出最大值即可
+            return Max;
+        for(int i=0;i<nums.size();i++)
+        {
+            sum+=nums[i];          //sum记录子段和
+          if(sum<0)               //sum小于0  重置sum 从下一位开始加起 即找到数组中的第一位正数
+          {
+              sum=0;
+          }
+            maxsum=max(maxsum,sum);  //maxsum记录每次加完之后的最大值
+        
+        }
+        return maxsum;
+    }
+};
+动态规划的做法
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        
+        int n=nums.size();
+        vector<int> a(n);  //a[i]表示以nums[i]为结尾的数组最大和
+         a[0]=nums[0];
+        int maxsum=nums[0];
+        for(int i=1;i<n;i++)
+        {
+            a[i]=max(a[i-1]+nums[i],nums[i]);//a[i]的值等于a[i-1]加上nums[i]的值和nums[i] 他们两个的最大值
+            maxsum=max(a[i],maxsum);
+        }
+        return maxsum;
+    }
+};
+
+
+int main(){
+	int n;
+	cin>>n;
+	int a[n+1];
+	for(int i=1;i<=n;i++)
+	cin>>a[i];
+	int sum=0;
+	int b=0;   //记录和 
+	int begin,besti,bestj;
+	for(int i=1;i<=n;i++){
+		if(b>0) b+=a[i];
+		else 
+		{b=a[i];
+		begin=i;}
+		if(b>sum){
+		sum=b;
+		besti=begin;
+		bestj=i;}
+	}
+	cout<<"最大子段和:"<<sum<<endl;
+	cout<<"起始位置"<<besti<<' '<<bestj;
+	return 0; 
+} 
