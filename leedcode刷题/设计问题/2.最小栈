@@ -1,0 +1,114 @@
+class MinStack {
+public:
+    /** initialize your data structure here. */
+    stack<int> newstack;  //成员变量 newstack  
+    MinStack() {
+        
+    }
+    
+    void push(int x) {
+        int min;  //记录当前栈中的最小值
+        if(newstack.empty())
+            min=x;
+        else 
+        {
+            min=newstack.top();  //最小值一直在栈顶
+            if(x<min)
+            min=x;
+        }
+           
+        newstack.push(x);   //每次把最小值和当前值都输入到栈中
+        newstack.push(min);
+    }
+    
+    void pop() {
+        newstack.pop(); //每次出栈把最小值和当前值都出栈
+        newstack.pop();
+    }
+    
+    int top() {
+        int p=newstack.top();  //由于栈顶是最小值 所以需要先把最小值出栈 返回栈顶元素 再把最小值入栈
+        newstack.pop();
+        int q=newstack.top();
+        newstack.push(p);
+            return q;
+    }
+    
+    int getMin() {
+        return newstack.top();
+    }
+};
+
+
+class MinStack {
+public:
+    /** initialize your data structure here. */
+    stack<int> newstack;  //用两个栈实现  一个存储元素值  一个存储当前栈中的最小值
+    stack<int> minstack;
+    MinStack() {
+        
+    }
+    
+    void push(int x) {
+        int min;
+        if(newstack.empty())
+            min=x;
+        else 
+        {   if(!minstack.empty())  //每输入一个元素 输入一个当前的最小值
+            min=minstack.top();
+            if(x<min)
+            min=x;
+        }
+           
+        newstack.push(x);
+        minstack.push(min);
+    }
+    
+    void pop() {
+        
+        minstack.pop();//把当前值和最小值都出栈 防止当前值就是最小值
+        newstack.pop();
+    }
+    
+    int top() {
+        int p=newstack.top();
+            return p;
+    }
+    
+    int getMin() {
+        return minstack.top();
+    }
+};
+
+
+
+class MinStack {
+public:
+    /** initialize your data structure here. */
+    stack<int> newstack;
+    stack<int> minstack;
+    MinStack() {
+        
+    }
+    
+    void push(int x) {
+        newstack.push(x);
+     if(minstack.empty()||x<=minstack.top())  //只输入比当前最小值小的值  因为会有重复 所有要小于等于
+        minstack.push(x);
+    }
+    
+    void pop() {
+        if(minstack.top()==newstack.top()) //如果当前栈顶的值和当前元素的值相等 就输出当前最小值
+            minstack.pop();
+        newstack.pop();
+    }
+    
+    int top() {
+        int p=newstack.top();
+            return p;
+    }
+    
+    int getMin() {
+        return minstack.top();
+    }
+};
