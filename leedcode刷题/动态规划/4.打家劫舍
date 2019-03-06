@@ -1,0 +1,48 @@
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int Max;
+        int len=nums.size();
+        vector<int> dp(len);  //用dp[i]表示 以nums[i]为结尾的最大值
+        if(len==0)
+            return 0;
+        if(len==1)
+            return nums[0];
+        if(len==2)
+            return nums[0]>nums[1]?nums[0]:nums[1];
+        dp[0]=nums[0];
+        dp[1]=nums[1];
+        dp[2]=max(nums[0]+nums[2],nums[1]);
+        if(len==3)
+            return max(dp[0],dp[2]);
+        Max=max(dp[0],dp[2]);//先记录前三个数的最大值
+        for(int i=3;i<len;i++)
+        {                                        //最大值包含nums[i]的情况即以nums[i]为结尾的最大值
+            dp[i]=max(dp[i-2],dp[i-3])+nums[i];  //dp[i]只与dp[i-2]最大值和dp[i-3]的最大值有关，因为i-4与i-2有关
+            Max=max(dp[i],Max);
+        }
+        return Max;
+    }
+};
+
+
+
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int len=nums.size();
+        vector<int> dp(len);
+        if(len==0)
+            return 0;
+        if(len==1)
+            return nums[0];
+        dp[0]=nums[0];
+        dp[1]=nums[0]>nums[1]?nums[0]:nums[1];
+        
+        for(int i=2;i<len;i++)             //最大值不一定包含nums[i]的情况 即nums[0]-num[i]区间内的最大值
+        {                                 //dp[i]最大值 包含dp[i-2]最大情况 但不包含dp[i-1] 所以可能不包含nums[i]
+            dp[i]=max(dp[i-2]+nums[i],dp[i-1]);
+        }
+        return dp[len-1];
+    }
+};
