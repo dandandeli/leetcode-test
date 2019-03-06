@@ -1,0 +1,54 @@
+static bool init = []()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    return true;
+}();
+
+
+class Solution {
+    vector<int> ans;
+    vector<int> ori;
+public:
+    Solution(vector<int> nums):ans(nums),ori(nums){} //构造函数初始化
+    
+    /** Resets the array to its original configuration and return it. */
+    vector<int> reset() {
+        ans = ori;
+        return ans;
+    }
+    
+    /** Returns a random shuffling of the array. */
+    vector<int> shuffle() {              //洗牌算法 随机交换数组中的两个位置  交换N次
+        for(int i=ans.size()-1; i>=0; --i)
+            swap(ans[i], ans[rand()%(i+1)]);
+        return ans;
+
+    }
+};
+
+class Solution {
+public:
+    vector<int> tmp;
+    Solution(vector<int> nums) {
+        tmp=nums;
+    }
+    
+    /** Resets the array to its original configuration and return it. */
+    vector<int> reset() {
+        return tmp;
+    }
+    
+    /** Returns a random shuffling of the array. */
+    vector<int> shuffle() {
+        vector<int> nums1=tmp;
+        
+        for(int i=0;i<nums1.size();++i)
+        {
+            int p=rand()%nums1.size();
+            if(p!=i)
+                swap(nums1[p],nums1[i]);
+        }
+        return nums1;
+    }
+};
