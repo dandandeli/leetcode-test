@@ -8,3 +8,4 @@ runtime error: reference binding to null pointer of type 'value_type' (stl_vecto
 for循环的嵌套关系：快指针在内循环，慢指针在外循环，即一个外指针循环一次，内指针循环n次
 字符串可以直接用+连接 也可以用append连接字符串 用push_back连接单个字符   pre+=strs[0][j]  pre.push_back(strs[0][j])
 数字与字符之间的转换  字符是用ASCII码表示的 1转换成‘1’,要加上‘0’  同理‘1’要转换成1 要减去‘0’
+to_string（） 把数字转换为字符串
