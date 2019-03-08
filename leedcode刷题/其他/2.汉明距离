@@ -1,0 +1,38 @@
+分别计算两个数中1的位数 两个数相与后1的位数 分别相减后在相加 
+class Solution {
+public:
+    int hammingWeight(int n) {
+        int nums,count=0;
+        while(n!=0)
+        {
+           nums=n%2;
+           n=n/2;
+            if(nums==1)
+                count++;
+        }
+        return count;
+    }
+    int hammingDistance(int x, int y) {
+        int m,n,p,tmp,sum; 
+        m=hammingWeight(x);
+        n=hammingWeight(y);
+        p=x&y;
+        tmp=hammingWeight(p);
+        sum=m-tmp+n-tmp; //1位数的减少 说明有几位1与另一个数字不同
+        return sum;
+    }
+};
+直接用异或来做  两个数不同为1 相同为0  最后计算异或后1的位数
+class Solution {
+public:
+    int hammingDistance(int x, int y) {
+        int z = x^y;
+        int res = 0;
+        while(z){
+            if(z%2 == 1)
+                res++;
+            z = z/2;
+        }
+        return res;
+    }
+};
