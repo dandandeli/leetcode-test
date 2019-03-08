@@ -1,0 +1,39 @@
+将十进制数转换成二进制数 计算1的个数
+class Solution {
+public:
+    int hammingWeight(uint32_t n) {
+        int nums,count=0;
+        while(n!=0)
+        {
+           nums=n%2;
+           n=n/2;
+            if(nums==1)
+                count++;
+        }
+        return count;
+    }
+};
+
+//直接判断二进制最低为的数是不是1
+int hammingWeight(uint32_t n) {
+        int ans=0;
+        while(n)
+        {
+            ans+=n&1;
+            n>>=1;//右移一位 相当于除以2 
+        }
+        return ans;
+    }
+    
+    
+//技巧：直接去掉二进制中位置最靠后的1
+int hammingWeight(uint32_t n) {  //如果最后一位不是1 前面只有一个1（最高位） 则减一后 每个位后会发生变化 相与后为0
+                                  //如果最后一位是1 减一相与后 前面还有1 就不会是0
+        int ans=0;
+        while(n)
+        {
+            ans++;
+            n&=n-1;
+        }
+        return ans;
+    }
