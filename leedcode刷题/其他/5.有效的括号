@@ -1,0 +1,41 @@
+class Solution {
+public:
+    bool isValid(string s) {
+        stack<char> str;
+        for(int i=0;i<s.size();i++)
+        {
+            if(s[i]=='('||s[i]=='['||s[i]=='{')
+                str.push(s[i]);
+            else
+            {
+                if(!str.empty()&&(s[i]==str.top()+1||s[i]==str.top()+2)) //注意不能直接比较是否相等 因为（不等于）
+                {                                                        //'('与')'的ASCII值差1，'['与']'，'{'与'}'的ASCII值差2
+                    str.pop();
+                }
+                else
+                    return 0;
+            }      
+        }
+        if(!str.empty())
+            return 0;
+        return 1;
+    }
+};
+
+
+class Solution {
+public:
+    bool isValid(string s) {
+         stack<char> temp;
+        for(auto c:s)
+        {
+            if(c=='[')  temp.push(']');  //分情况输入对应的括号
+            else if(c=='(') temp.push(')');
+            else if(c=='{') temp.push('}');     
+            else if(temp.empty()||temp.top()!=c) return false; //先判断栈是否为空 才能取他的栈顶值
+            else temp.pop();
+        }
+        if(temp.empty())  return true; //如果有奇数个元素 最后栈不空
+        else return false;
+    }
+};
