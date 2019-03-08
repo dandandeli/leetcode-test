@@ -1,0 +1,90 @@
+先加后减 标注出特殊情况
+class Solution {
+public:
+    int romanToInt(string s) {
+        int n=s.length();
+        int sum=0;
+        for(int i=0;i<n;i++)
+        {
+          switch(s[i]){
+              case 'I':
+                  sum+=1;
+                  break;
+              case 'V':
+                  sum+=5;
+                  break;
+              case 'X':
+                  sum+=10;
+                  break;
+              case 'L':
+                  sum+=50;
+                  break;
+              case 'C':
+                  sum+=100;
+                  break;
+              case 'D':
+                  sum+=500;
+                  break;
+              case 'M':
+                  sum+=1000;
+                  break;
+          }
+            if(i>0)
+            {
+                if(s[i]=='V'||s[i]=='X'&&s[i-1]=='I')
+                    sum-=2;
+                if(s[i]=='L'||s[i]=='C'&&s[i-1]=='X')
+                    sum-=20;
+                if(s[i]=='D'||s[i]=='M'&&s[i-1]=='C')
+                    sum-=200;    
+            } 
+        }
+        return sum;
+    }
+};
+
+先把每个罗马数字转换成数字 存到数组中 在对数组相邻的两个值进行比较 如果当前的值小于后边的值 减去这个值 否则加上这个值
+class Solution {
+public:
+    int romanToInt(string s) {
+        int n=s.length(),sum=0;
+        vector<int> nums(n);
+        for(int i=0;i<n;i++)
+        {
+          switch(s[i]){
+              case 'I':
+                  nums[i]=1;
+                  break;
+              case 'V':
+                  nums[i]=5;
+                  break;
+              case 'X':
+                  nums[i]=10;
+                  break;
+              case 'L':
+                  nums[i]=50;
+                  break;
+              case 'C':
+                  nums[i]=100;
+                  break;
+              case 'D':
+                  nums[i]=500;
+                  break;
+              case 'M':
+                 nums[i]=1000;
+                  break;
+          }
+            
+            
+        }
+        int  j;
+            for( j=0;j<n-1;j++)
+            {
+                if(nums[j]<nums[j+1])
+                    sum-=nums[j];
+                else
+                    sum+=nums[j];
+            }
+        return sum+nums[j];
+    }
+};
