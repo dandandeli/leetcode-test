@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<vector<int>> generate(int numRows) {  //二维数组设置固定大小 先设置第一维的长度，但是不能初始化为0
+       vector<vector<int>> nums(numRows);  //也可以用vector<vector<int>> nums(numRows，vector<int>(numRows,0))
+        for(int i=0;i<numRows;i++)  //循环遍历 设置第二维的长度
+        {
+            nums[i].resize(i+1);
+        }
+        for(int i=0;i<numRows;i++)
+        {  
+            nums[i][0]=1;
+            for(int j=1;j<i+1;j++)
+            {
+                if(j!=i)
+                nums[i][j]=nums[i-1][j-1]+nums[i-1][j];
+                else
+                nums[i][j]=1;
+            }
+        }
+        return nums;
+    }
+};
