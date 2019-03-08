@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+    //     map<int,int> m;                   
+    //     for(int i=0;i<nums.size();i++)
+    //       m[nums[i]]++;
+    //     for(int i=0;i<=nums.size();i++)
+    //     {
+    //         if(m[i]==0)  //用map标记每个数字是否出现过
+    //             return i;
+    //     }
+    //     return 0;
+    // }
+        int n=0,i=0,s=0;
+        for(;i<nums.size();i++)
+        {
+            n+=nums[i];//把nums的所有值相加和0到n的所有值相加 两者之差就是缺少的那个值
+            s+=i;
+        }
+        s+=i;
+        return s-n;
+    }
+};
+
+
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        sort(nums.begin(),nums.end());  //先排序
+        int i=0;
+        for( i=0;i<nums.size();i++)
+        {
+            if(i!=nums[i])  //比较i值与nums[i]的值 不等就返回i值
+                return i;
+        }
+        return i;
+    }
+    
+};
