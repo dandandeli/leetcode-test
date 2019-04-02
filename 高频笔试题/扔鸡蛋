@@ -1,0 +1,71 @@
+class Solution {
+public:
+    int superEggDrop(int K, int N) {
+            if(N==0)
+                return 0;
+            if(N==1)  //只有一层楼  只需要实验一次
+                return 1;
+            if(K==1)  //只有一个鸡蛋  需要从一楼开始逐层实验  不碎可以继续用
+                return N;
+        int Min=N;
+        for(int i=1;i<=N;i++)
+        {
+             int Max=max(superEggDrop(K-1,i-1),superEggDrop(K,N-i))+1;
+             Min=min(Max,Min);
+        }
+        return Min;
+            
+        
+        
+    }
+};
+
+class Solution {
+public:
+    int superEggDrop(int K, int N) {
+            if(N==0)
+                return 0;
+            if(N==1)  //只有一层楼  只需要实验一次
+                return 1;
+            if(K==1)  //只有一个鸡蛋  需要从一楼开始逐层实验  不碎可以继续用
+                return N;
+       
+        int a[K+1][N+1]; //最小移动次数
+        for(int i=0;i<=K;i++)
+            a[i][0]=0;  //层数为0的情况
+        for(int i=0;i<=N;i++)
+        {
+            a[0][i]=0;
+            a[1][i]=i;
+        }
+        for(int k=2;k<=K;k++)  //鸡蛋个数从K开始
+        for(int n=1;n<=N;n++) //楼层个数从1开始到N
+        {
+             int tmp=N;
+            for(int i=1;i<=n;i++)//从第1层开始实验扔,一直到n层 找到最佳层
+        {
+            tmp=min(tmp,max(a[k-1][i-1],a[k][n-i])+1);
+            a[k][n]=tmp;
+        }
+        }
+        
+        return a[K][N];
+            
+        
+        
+    }
+};
+
+class Solution {
+public:
+    int superEggDrop(int K, int N) {
+        vector<vector<int>> dp(N + 1, vector<int>(K + 1, 0));  //dp[m][k] 的含义是k个鸡蛋 移动m步最多能够确定多少楼层
+        int m = 0;
+        while (dp[m][K] < N) {
+            m++;
+            for (int k = 1; k <= K; ++k)
+                dp[m][k] = dp[m - 1][k - 1] + dp[m - 1][k] + 1; // 这一步可能打碎鸡蛋  可能不打碎鸡蛋加上两者确定的楼层数 再加本楼层
+        }
+        return m;
+    }
+};
