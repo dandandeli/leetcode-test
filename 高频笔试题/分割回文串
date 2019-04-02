@@ -1,0 +1,82 @@
+class Solution {
+public:
+    vector<string> tmp;
+    vector<vector<string>> result;
+    bool isTrue(string s1)
+    {
+        int i=0;
+        int j=s1.size()-1;  //注意必须要减一
+        while(i<j)
+        {
+            if(s1[i]==s1[j])
+            {
+                i++;
+                j--;
+            }
+            else 
+                return 0;
+        }
+        return 1;
+    }
+     void partion(string s)
+     {
+        if(s.size()==0)  //当字符串被分割完毕  保存此次分割结果
+        {
+            result.push_back(tmp);
+            return;
+        } 
+    
+        for(int divide=1;divide<=s.size();divide++) //从divide处进行分割
+        {
+            string s1(s.substr(0,divide));  //一种用字符串substr方式 切割字符串 第一个参数切割的起始位置，第二个参数是切割位数
+            string s2(s,divide,s.size()-divide);  //另一种用字符串初始化方式 第一个参数是需要用的字符串 第二个参数字符串初始化起始位置 第三个参数是需要的位数
+             if(isTrue(s1))
+             {
+                tmp.push_back(s1);
+                partion(s2);
+                tmp.pop_back();
+             }
+     }
+     }
+    
+    vector<vector<string>> partition(string s) 
+    {  
+            partion(s);
+            return result;    
+             } 
+};
+
+
+//类似于回溯法典型问题 集合的全排列问题
+#include<iostream>
+#include<algorithm>
+using namespace std;
+void perm(int a[],int left,int right);
+ 
+ int main(){
+ 	 int n;
+ 	 cin>>n;
+ 	 int a[n];
+ 	 for(int i=0;i<n;i++){
+ 	 	cin>>a[i];	
+ 	 }
+ 	 perm(a,0,n-1);
+ 	 return 0;	
+ } 
+ 
+ void perm(int a[],int left,int right){
+ 	if(left==right)
+ 	{
+	 	for(int i=0;i<=right;i++){
+	 	cout<<a[i]<<' ';
+	 	}
+	 	cout<<endl;
+	 }
+	 else{
+ 		for(int j=left;j<=right;j++){
+ 		swap(a[j],a[left]);
+ 		perm(a,left+1,right);
+ 		swap(a[j],a[left]);
+ 		}
+ 	}
+ }
