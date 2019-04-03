@@ -68,6 +68,6 @@ public:
             ListNode *q=new ListNode(1);
             l3->next=q;
         }
-        return root->next;   //局部指针变量不能直接返回 因为它指向的空间出了作用域范围会无效
+        return root->next;   //局部指针变量不能直接返回 因为它指向的空间出了作用域范围会无效  但是可以返回堆空间分配的 因为他不会函数结束收回
     }
 };
