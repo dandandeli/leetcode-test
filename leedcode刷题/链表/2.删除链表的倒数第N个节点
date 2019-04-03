@@ -85,9 +85,9 @@ class Solution {
 public:
     ListNode* removeNthFromEnd(ListNode* head, int n) {
       ListNode *fast,*slow;               //声明指针变量时 并没有分配存储内容的内存空间 只是存放了指针地址 要对指针内容进行操作需要先用new或者malloc分配内存空间
-        ListNode *dummy=new ListNode(0);  //创造辅助节点dummy 需要动态分配内存空间  要不然不能做左值
+        ListNode *dummy=new ListNode(0);  //创造辅助节点dummy 需要动态分配内存空间  要不然不能做左值  相当于把
                                           //哑节点（dummy Node）是一个被人为创建的节点，虽然其内容为NULL，但是它在堆中有占有一定的空间。
-        dummy->next=head;
+        dummy->next=head;          //dummy不初始化 不能直接用next 它指向没有明确可能是空指针
         if(!head)
             return head;
         fast=head;
@@ -105,3 +105,6 @@ public:
         return head;
     }
 };
+
+ ListNode a(0);
+   ListNode *dummy=&a;
