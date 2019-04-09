@@ -1,0 +1,60 @@
+public:
+    int lengthOfLongestSubstring(string s) {
+        int leg=0,j=0,maxleg=0;
+        
+        for(int j=0;j<s.size();j++)
+        {
+           set<char> a; 
+            leg=0;
+           for(int i=j;i<s.size();i++)
+        {
+            
+            if(!a.count(s[i]))
+            {
+                a.insert(s[i]);
+                leg++;
+            }
+            else
+            {          //不能在此处leg=0 是因为可能直到最后一个元素 leg还没置为0
+                break;
+            }
+            maxleg=max(leg,maxleg);
+        }
+        }
+        return maxleg;
+        }
+        
+};
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int maxleg=0;
+        int k=0,leg=0;
+        set<char> a;
+        for(int i=k;i<s.size();i++)
+        {
+            
+            if(!a.count(s[i]))
+            {
+                a.insert(s[i]);
+                leg++;
+                
+            }
+            else
+            {  
+			 i=k;
+             k++;
+			 leg=0;
+			 a.clear();
+			      //不能在此处leg=0 是因为可能直到最后一个元素 leg还没置为0
+            }
+            
+            maxleg=max(leg,maxleg);
+            if(i==s.size()-1)
+                leg=0;
+        }
+        return maxleg;
+        }
+        
+};
