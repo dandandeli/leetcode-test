@@ -85,3 +85,34 @@ public:
         return b;   
     }
 };
+
+class Solution {
+public:
+    string countAndSay(int n) {
+        vector<string> s(n+1);
+        s[1]='1';
+        if(n==1) return s[1];
+        s[2]="11";    //字符串用双引号 单引号只能表示单个字符
+        for(int i=2;i<n;i++)
+        {
+            int count=1,j;
+            for( j=1;j<s[i].size();j++)
+            {
+                
+                if(s[i][j]==s[i][j-1])
+                {count++;
+                }
+                else
+                {
+                    s[i+1].push_back('0'+count);
+                    s[i+1].push_back(s[i][j-1]);
+                    count=1;
+                }
+            }
+                    s[i+1].push_back('0'+count);
+                    s[i+1].push_back(s[i][j-1]);
+            
+        }
+        return s[n];
+    }
+};
